@@ -1,0 +1,97 @@
+<div class="cogitron-wrap">
+    <h1>Cogitron Dashboard</h1>
+
+    <div class="sales">
+        <h2>Sales Stats</h2>
+        <hr>
+        <div>
+            <?php  
+            
+            $sales = Mage::getModel('cogitron/cogsales')->getCartav();
+            $orders = number_format($sales[0],0);
+            $total = $sales[1];
+
+            ?>
+            <p>With <?php echo $orders; ?> successful orders and total complete, non-refunded sales of <?php echo $cur = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); echo $total;?>, your average cart value is:</p>
+            <p class="value"><?php
+                $orders = str_replace(',','',number_format($sales[0],0));
+                $total = str_replace(',','',$sales[1]);
+                settype($total, 'integer');
+                settype($orders, 'integer');
+                echo $cur.number_format(((int)$total/(int)$orders),2);?>
+                <span class="small"> lifetime to <?php echo $sales[2];?></span>
+            </p>
+
+            <p class="history">
+
+            <?php  $history = Mage::getModel('cogitron/cogsales')->getCartLifetimeAverages();
+
+                    foreach($history as $month){?>
+                        <div class="tooltip">
+                            <?php
+                            $orders = str_replace(',','',number_format($month[0],0));
+                        $total = str_replace(',','',$month[1]);
+                        settype($total, 'integer');
+                        settype($orders, 'integer');
+                        echo $cur.number_format(((int)$total/(int)$orders),2);?>
+                                <span class="small"> lifetime to <?php echo $month[2];?> </span><span class="tooltiptext"> (<?php echo $month[0];?> orders)</span>
+
+                        </div>
+                    <?php }?>
+
+            </p>
+            <p class="small">*due to rounding, this number will be slightly inaccurate - decimals.</p>
+        </div>
+    </div>
+    <div class="products">
+        <h2>Product Stats</h2>
+        <hr>
+        <h3>Most frequently ordered product</h3>
+        <?php $best = Mage::getModel('cogitron/cogproducts')->getBestseller(); ?>
+        <p class="best"><a href="<?php echo Mage::helper("adminhtml")->getUrl("/catalog_product/edit/id/" . $best[0]['product_id']); ?>"><?php echo $best[0]['name']; ?></a> <?php echo $best[0]['skuCount'];  ?> orders</p>
+        <h3>Product with most units ordered</h3>
+        <?php $most = Mage::getModel('cogitron/cogproducts')->getMostseller(); ?>
+        <p class="most"><a href="<?php echo Mage::helper("adminhtml")->getUrl("/catalog_product/edit/id/" . $most[0]['product_id']); ?>"><?php echo $most[0]['name']; ?></a> <?php echo number_format($most[0]['shipCount'],0);  ?> units</p>
+
+        <h3>Low stock products</h3>
+        <?php echo $productstock = Mage::getModel('cogitron/cogproducts')->getProductstock(); ?>
+    </div>
+    <div class="customers">
+        <h2>Customer Stats</h2>
+        <hr>
+        <h3>Number of unique customers (by email)</h3>
+            <p class="uniquecust">
+            <?php echo $customer = Mage::getModel('cogitron/cogcustomers')->getNumbercustomers(); ?>
+            </p>
+        <h3>Number of repeat customers</h3>
+        <p class="uniquecust">
+            <?php echo $customer = Mage::getModel('cogitron/cogcustomers')->getNumberRepeatCustomers(); ?>
+        </p>
+        <p class="uniquecust">
+            <?php
+
+       // echo $productstock = Mage::getModel('cogitron/cogcustomers')->getHigestSpendCustomers();
+
+        $frequentcust = Mage::getModel('cogitron/cogcustomers')->getMostFrequentCustomers();
+
+        if($frequentcust){ ?>
+
+        <h3>Most Frequent customers</h3>
+        <p>Click through to see the customer, if registered. Unregistered (guest) customers have no links.</p>
+        <?php }
+
+        foreach($frequentcust as $cust) {
+            echo "<p>";
+
+            if ($cust[0]) {
+                echo "<a href=\"" . Mage::helper("adminhtml")->getUrl("adminhtml/customer/edit/id/" . $cust[0]) . "\">" . $cust[1] . "</a> - " . $cust[2] . " orders";
+            }
+            if (!$cust[0]) {
+                echo $cust[1] . " - " . $cust[2] . " orders";
+            }
+            echo "</p>";
+        }
+        ?>
+      
+    </div>
+</div>

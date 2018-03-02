@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Shaun_Cogitron>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.0.1</version>
+    </Shaun_Cogitron>
+  </modules>
+</config>

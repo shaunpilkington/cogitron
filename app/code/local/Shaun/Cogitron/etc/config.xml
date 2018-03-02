@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Phoenix
+ * @package     Phoenix_Moneybookers
+ * @copyright   Copyright (c) 2017 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Shaun_Cogitron>
+            <version>0.0.1</version>
+        </Shaun_Cogitron>
+    </modules>
+    <global>
+        <models>
+            <cogitron>
+                <class>Shaun_Cogitron_Model</class>
+                <resourceModel>cogitron_resource</resourceModel>
+            </cogitron>
+            <cogitron_resource>
+                <class>Shaun_Cogitron_Model_Resource</class>
+                <entities>
+                    <cogsales>
+                        <table>cogitron_sales</table>
+                    </cogsales>
+                </entities>
+            </cogitron_resource>
+        </models>
+        <helpers>
+            <cogitron>
+                <class>Shaun_Cogitron_Helper</class>
+            </cogitron>
+        </helpers>
+        <resources>
+            <cogitron_setup>
+                <setup>
+                    <module>Shaun_Cogitron</module>
+                </setup>
+            </cogitron_setup>
+        </resources>
+za
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <use>admin</use>
+                <args>
+                    <modules>
+                        <shaun_cogitron after="Mage_Adminhtml">Shaun_Cogitron_Adminhtml</shaun_cogitron>
+                    </modules>
+                    <frontName>shaun_cogitron</frontName>
+                </args>a
+
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Shaun_Cogitron>
+                    <files>
+                        <default>Shaun_Cogitron.csv</default>
+                    </files>
+                </Shaun_Cogitron>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <cogitron>
+                    <file>cogitron.xml</file>
+                </cogitron>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <cogitron translate="title" module="cogitron">
+                                            <title>Cogitron Settings</title>
+                                        </cogitron>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+
+
+
+    </adminhtml>
+
+
+</config>

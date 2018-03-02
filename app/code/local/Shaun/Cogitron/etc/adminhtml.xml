@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+    <cogitron translate="title" module="cogitron">
+        <title>Cogitron</title>
+        <sort_order>35</sort_order>
+        <children>
+            <cogitron_dash translate="title">
+                <title>Cogitron Dashboard</title>
+                <action>adminhtml/shaun_cogitron/index/index</action>
+                <sort_order>0</sort_order>
+            </cogitron_dash>
+            <cogitron_sales translate="title">
+                <title>Sales Stats</title>
+                <action>adminhtml/shaun_cogitron/sales</action>
+                <sort_order>1</sort_order>
+            </cogitron_sales>
+            <cogitron_prod translate="title">
+                <title>Product Stats</title>
+                <action>adminhtml/shaun_cogitron/products</action>
+                <sort_order>2</sort_order>
+            </cogitron_prod>
+            <cogitron_cust translate="title">
+                <title>Customer Stats</title>
+                <action>adminhtml/shaun_cogitron/customers</action>
+                <sort_order>3</sort_order>
+            </cogitron_cust>
+        </children>
+
+    </cogitron>
+</menu>
+
+
+    </config>
